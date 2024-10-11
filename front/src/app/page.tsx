@@ -4,10 +4,12 @@ import { InputPesquisa } from "@/components/InputPesquisa";
 import { ItemPokemon } from "@/components/ItemPokemon";
 import { PokemonI } from "@/utils/types/pokemons";
 import { useEffect, useState } from "react";
+import { useTreinadorStore } from "@/context/treinador";
 
 export default function Home() {
 
   const [pokemons, setPokemons] = useState<PokemonI[]>([])
+  const { logaTreinador } = useTreinadorStore()
 
   useEffect(() => {
     async function buscaDados() {
@@ -15,7 +17,24 @@ export default function Home() {
       const dados = await response.json()
       setPokemons(dados)
     }
+
     buscaDados()
+
+    async function buscaTreinador(idTreinador: string) {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/${idTreinador}`)
+
+      if (response.status == 200) {
+        const dados = await response.json()
+        logaTreinador(dados)
+      }
+    }
+
+    if (localStorage.getItem("treinador_key")) {
+      const idTreinadorLocal = localStorage.getItem("treinador_key") as string
+      buscaTreinador(idTreinadorLocal)
+    }
+
+    
   }, [])
 
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useTreinadorStore } from "@/context/treinador";
 
 type Inputs = {
     email: string,
@@ -14,6 +15,7 @@ type Inputs = {
 export default function Login() {
 
     const { register, handleSubmit } = useForm<Inputs>()
+    const { logaTreinador } = useTreinadorStore()
     const router = useRouter()
 
     async function verificaLogin(data: Inputs) {
@@ -29,6 +31,16 @@ export default function Login() {
         })
         if (response.status == 200) {
             const dados = await response.json()
+            logaTreinador(dados)
+
+            if (data.manter) {
+                localStorage.setItem("treinador_key", dados.id)
+            } else {
+                if (localStorage.getItem("treinador_key")) {
+                    localStorage.removeItem("treinador_key")
+                }
+            }
+
             router.push("/")
         } else {
             toast.error("Erro... E-mail ou Senha incorretos!")
