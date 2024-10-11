@@ -4,12 +4,15 @@ import { PokemonI } from "@/utils/types/pokemons"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useTreinadorStore } from "@/context/treinador"
 
 export default function Detalhes() {
 
     const params = useParams()
 
     const [pokemon, setPokemon] = useState<PokemonI>()
+    const [capturado, setCapturado] = useState<boolean>(false)
+    const { treinador } = useTreinadorStore()
 
     useEffect(() => {
         async function buscaDados() {
@@ -50,7 +53,17 @@ export default function Detalhes() {
         <section className="flex flex-col mt-32 mx-auto items-center bg-white border border-gray-400 rounded-lg shadow md:flex-row md:max-w-5xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <img className="object-cover w-full rounded-t-lg h-96 md:h-2/4 md:w-2/4 md:rounded-none md:rounded-s-lg" src={pokemon?.foto} alt="" />
             <div className="flex flex-col justify-between p-4 leading-normal">
-                <h5 className="mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">{pokemon?.nome}</h5>
+                <h5 className="flex justify-between mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {pokemon?.nome}
+                    {treinador.id &&
+                        <img
+                            src={capturado ? "/pokeball.png" : "/pokeball_pb.png"}
+                            alt="Pokebola Preto e Branca"
+                            className="w-10 h-10 cursor-pointer"
+                            onClick={() => setCapturado(!capturado)}
+                        />
+                    }
+                </h5>
                 <div className="flex justify-between mb-3">
                     <p className="font-bold text-2xl text-gray-700 dark:text-gray-400">
                         Nº: {pokemon?.numero}
