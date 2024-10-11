@@ -1,23 +1,106 @@
+'use client'
+
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
+type Inputs = {
+    email: string,
+    senha: string,
+    manter: boolean
+}
+
 export default function Login() {
+
+    const { register, handleSubmit } = useForm<Inputs>()
+    const router = useRouter()
+
+    async function verificaLogin(data: Inputs) {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/login`, {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify({
+                email: data.email,
+                senha: data.senha
+            })
+        })
+        if (response.status == 200) {
+            const dados = await response.json()
+            router.push("/")
+        } else {
+            toast.error("Erro... E-mail ou Senha incorretos!")
+        }
+    }
+
     return (
-        <main>
-            <form className="mt-32 max-w-sm mx-auto">
-                <div className="mb-5">
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Seu e-mail</label>
-                    <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-                </div>
-                <div className="mb-5">
-                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Senha de Acesso</label>
-                    <input type="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-                </div>
-                <div className="flex items-start mb-5">
-                    <div className="flex items-center h-5">
-                        <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+        <section className="bg-white dark:bg-white">
+            <div className="flex flex-col items-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                <div className="w-full bg-white border border-gray-400 rounded-lg shadow dark:border md:mt-20 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                        <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                            Informe seus dados de acesso
+                        </h1>
+                        <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit(verificaLogin)}>
+                            <div>
+                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    E-mail do Treinador:
+                                </label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="name@company.com"
+                                    required
+                                    {...register("email")}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Senha de Acesso:
+                                </label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    placeholder="••••••••"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    required
+                                    {...register("senha")}
+                                />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-start">
+                                    <div className="flex items-center h-5">
+                                        <input
+                                            id="remember"
+                                            aria-describedby="remember"
+                                            type="checkbox"
+                                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                                            {...register("manter")}
+                                        />
+                                    </div>
+                                    <div className="ml-3 text-sm">
+                                        <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">
+                                            Manter Conectado
+                                        </label>
+                                    </div>
+                                </div>
+                                <Link href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-white">
+                                    Esqueceu sua Senha?
+                                </Link>
+                            </div>
+                            <button type="submit" className="w-full text-white bg-orange-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                Entrar
+                            </button>
+                            <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                                Não está cadastrado? <Link href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Cadastre-se</Link>
+                            </p>
+                        </form>
                     </div>
-                    <label htmlFor="remember" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-600">Lembrar dados</label>
                 </div>
-                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Entrar</button>
-            </form>
-        </main>
+            </div>
+        </section>
     )
 }

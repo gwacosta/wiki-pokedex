@@ -4,7 +4,7 @@ import Link from "next/link";
 export function ItemPokemon({data}: {data: PokemonI}) {
     return (
 
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div className="max-w-sm bg-white border border-gray-400 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <img className="w-56 h-56 mx-auto rounded-t-lg" src={data.foto} alt={data.nome} />
             <div className="p-5">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
