@@ -17,15 +17,6 @@
 /*M!100616 SET @OLD_NOTE_VERBOSITY=@@NOTE_VERBOSITY, NOTE_VERBOSITY=0 */;
 
 --
--- Current Database: `pokedex`
---
-DROP DATABASE pokedex;
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `pokedex` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-
-USE `pokedex`;
-
---
 -- Table structure for table `_prisma_migrations`
 --
 
@@ -52,15 +43,44 @@ CREATE TABLE `_prisma_migrations` (
 LOCK TABLES `_prisma_migrations` WRITE;
 /*!40000 ALTER TABLE `_prisma_migrations` DISABLE KEYS */;
 INSERT INTO `_prisma_migrations` VALUES
+('1e94f05e-93ea-44d1-a452-8b3f8b45bf1e','30113130876a509a4d8df227480f48e96c300f505c3cb5fe355310bd5af4d0e3','2024-10-11 06:08:55.058','20241011060854_adicionado_treinador_e_capturas',NULL,NULL,'2024-10-11 06:08:54.992',1),
 ('237a3d16-4f9d-447c-be6c-a75154833377','f15d1033e34f1a3b38b42d9d913834ea8ac4385177ab738ef3213468c294e389','2024-09-10 07:09:27.555','20240906062235_segundo_envio',NULL,NULL,'2024-09-10 07:09:27.532',1),
 ('441a0b38-49f7-48e8-8754-5359507fce74','6a9259f4c1d178e8127d70fda8bd8e77e9e63a123ca2f8b64bba75377c00c3ac','2024-09-10 08:55:48.235','20240910085548_setimo_envio',NULL,NULL,'2024-09-10 08:55:48.184',1),
 ('6082df02-ed47-443f-a3a9-2c9f8519ff25','2058908e4c5236eb64b274708ff1d705dceaab93433f01060801c15b1b802899','2024-09-10 07:09:27.572','20240906081339_terceiro_envio',NULL,NULL,'2024-09-10 07:09:27.556',1),
 ('945830fe-6f41-4a1c-afde-cceadd390285','dfe2a6e0980829cb27136e550aaea0a30c15e55c976052de6f04060358d5d365','2024-09-10 07:09:27.529','20240906060504_tabelas_iniciais',NULL,NULL,'2024-09-10 07:09:27.424',1),
 ('b461d0c8-6223-4e53-8c04-d0249531420b','e9910271be4e88b0b376c35d16851a798c8e5b2d124d2b7a1a28085909728d4b','2024-09-10 07:09:27.635','20240907061043_sexto_envio',NULL,NULL,'2024-09-10 07:09:27.622',1),
+('bb14a221-79f3-48a1-9bca-a16f25b7075e','0d1940821c98ed82ad40dc0bdcec90b5b24882df6917ca5845a1c773a348fe52','2024-10-11 06:46:25.557','20241011064625_ajustado_email_treinador',NULL,NULL,'2024-10-11 06:46:25.536',1),
 ('d40aa82c-44e9-434d-ab65-45b2acc866b6','3d25e7d1152691798baffb32fe60526b1fad08afe288997a2c8d3b6f6d480015','2024-09-10 07:09:27.589','20240907041753_quarto_envio',NULL,NULL,'2024-09-10 07:09:27.573',1),
 ('e2010d5d-42d0-416b-aba6-7ea13763136e','2e7971bf4aaec8146d4244daec25d507b3c576bc19b236cf6446f2ddb75ca155','2024-09-10 07:09:27.619','20240907061023_sexto_envio',NULL,NULL,'2024-09-10 07:09:27.603',1),
 ('ebd40867-69a4-4db3-af63-e3857b3ba534','59099c1d9fe9c36593b85a9080375e80744af8e4c6e82c5b10e02a17c5d7e03a','2024-09-10 07:09:27.602','20240907055250_quinto_envio',NULL,NULL,'2024-09-10 07:09:27.590',1);
 /*!40000 ALTER TABLE `_prisma_migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `capturas`
+--
+
+DROP TABLE IF EXISTS `capturas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `capturas` (
+  `treinadorId` varchar(36) NOT NULL,
+  `pokemonId` int(11) NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  PRIMARY KEY (`treinadorId`,`pokemonId`),
+  KEY `capturas_pokemonId_fkey` (`pokemonId`),
+  CONSTRAINT `capturas_pokemonId_fkey` FOREIGN KEY (`pokemonId`) REFERENCES `pokemons` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `capturas_treinadorId_fkey` FOREIGN KEY (`treinadorId`) REFERENCES `treinadores` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `capturas`
+--
+
+LOCK TABLES `capturas` WRITE;
+/*!40000 ALTER TABLE `capturas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `capturas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -282,6 +302,37 @@ INSERT INTO `pokemons` VALUES
 (151,'Mew',4.0,0.4,'Synchronize','[\"Fantasma\",\"Inseto\",\"Sombrio\"]','[\"Psiquico\"]',3,NULL,NULL,'https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/151.png','So rare that it is still said to be a mirage by many experts. Only a few people have seen it worldwide.',151);
 /*!40000 ALTER TABLE `pokemons` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `treinadores`
+--
+
+DROP TABLE IF EXISTS `treinadores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `treinadores` (
+  `id` varchar(36) NOT NULL,
+  `nome` varchar(60) NOT NULL,
+  `email` varchar(40) NOT NULL,
+  `senha` varchar(60) NOT NULL,
+  `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `updatedAt` datetime(3) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `treinadores_email_key` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `treinadores`
+--
+
+LOCK TABLES `treinadores` WRITE;
+/*!40000 ALTER TABLE `treinadores` DISABLE KEYS */;
+INSERT INTO `treinadores` VALUES
+('79fa10d6-58ad-485e-a6b3-d420e533b982','Pedro Santos','ped@gmail.com','$2b$12$CFfnMqNEYnH3xFWjU0IXc.ZZauIuYenUTYxM9EWWtT1a6k0c4t41e','2024-10-11 07:03:07.278','2024-10-11 07:03:07.278'),
+('e74bded7-5c2b-443b-881d-c90b5a21293f','Ana Maria Santos','ana@gmail.com','$2b$12$cVX4jhMH94flqCOk.gc4SuZ30C5jF6Al1dJsl8X0YAJf.yd4aeGoy','2024-10-11 07:02:09.413','2024-10-11 07:02:09.413');
+/*!40000 ALTER TABLE `treinadores` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -292,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2024-09-10  5:59:18
+-- Dump completed on 2024-10-11  6:06:42
