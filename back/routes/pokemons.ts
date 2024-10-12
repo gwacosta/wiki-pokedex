@@ -85,6 +85,13 @@ router.delete("/:id", async (req, res) => {
   const { id } = req.params
 
   try {
+
+    await prisma.captura.deleteMany({
+      where: {
+        pokemonId: Number(id),
+      }
+    })
+
     const pokemon = await prisma.pokemon.delete({
       where: { id: Number(id) }
     })
