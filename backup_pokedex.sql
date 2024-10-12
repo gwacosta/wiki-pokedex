@@ -20,6 +20,12 @@
 -- Table structure for table `_prisma_migrations`
 --
 
+DROP DATABASE IF EXISTS pokedex;
+
+CREATE DATABASE pokedex;
+
+USE pokedex;
+
 DROP TABLE IF EXISTS `_prisma_migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -52,6 +58,7 @@ INSERT INTO `_prisma_migrations` VALUES
 ('bb14a221-79f3-48a1-9bca-a16f25b7075e','0d1940821c98ed82ad40dc0bdcec90b5b24882df6917ca5845a1c773a348fe52','2024-10-11 06:46:25.557','20241011064625_ajustado_email_treinador',NULL,NULL,'2024-10-11 06:46:25.536',1),
 ('d40aa82c-44e9-434d-ab65-45b2acc866b6','3d25e7d1152691798baffb32fe60526b1fad08afe288997a2c8d3b6f6d480015','2024-09-10 07:09:27.589','20240907041753_quarto_envio',NULL,NULL,'2024-09-10 07:09:27.573',1),
 ('e2010d5d-42d0-416b-aba6-7ea13763136e','2e7971bf4aaec8146d4244daec25d507b3c576bc19b236cf6446f2ddb75ca155','2024-09-10 07:09:27.619','20240907061023_sexto_envio',NULL,NULL,'2024-09-10 07:09:27.603',1),
+('e2ada6f4-cbf2-4236-b032-9b4c0265c63d','8be2b5e21d1bb7551747443f57626c559acb096a14ff7cf0fa7216750d87bd22','2024-10-12 05:58:32.146','20241012055832_adicionado_cod_rec_senha',NULL,NULL,'2024-10-12 05:58:32.086',1),
 ('ebd40867-69a4-4db3-af63-e3857b3ba534','59099c1d9fe9c36593b85a9080375e80744af8e4c6e82c5b10e02a17c5d7e03a','2024-09-10 07:09:27.602','20240907055250_quinto_envio',NULL,NULL,'2024-09-10 07:09:27.590',1);
 /*!40000 ALTER TABLE `_prisma_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -80,6 +87,26 @@ CREATE TABLE `capturas` (
 
 LOCK TABLES `capturas` WRITE;
 /*!40000 ALTER TABLE `capturas` DISABLE KEYS */;
+INSERT INTO `capturas` VALUES
+('79fa10d6-58ad-485e-a6b3-d420e533b982',1,'2024-10-12 04:54:54.649'),
+('79fa10d6-58ad-485e-a6b3-d420e533b982',2,'2024-10-12 04:24:23.164'),
+('79fa10d6-58ad-485e-a6b3-d420e533b982',3,'2024-10-12 04:24:19.360'),
+('79fa10d6-58ad-485e-a6b3-d420e533b982',4,'2024-10-12 04:24:45.749'),
+('79fa10d6-58ad-485e-a6b3-d420e533b982',5,'2024-10-12 04:24:47.478'),
+('79fa10d6-58ad-485e-a6b3-d420e533b982',6,'2024-10-12 04:24:49.491'),
+('79fa10d6-58ad-485e-a6b3-d420e533b982',63,'2024-10-12 04:24:59.399'),
+('79fa10d6-58ad-485e-a6b3-d420e533b982',64,'2024-10-12 04:25:00.841'),
+('79fa10d6-58ad-485e-a6b3-d420e533b982',65,'2024-10-12 04:25:02.291'),
+('79fa10d6-58ad-485e-a6b3-d420e533b982',145,'2024-10-12 04:24:36.628'),
+('79fa10d6-58ad-485e-a6b3-d420e533b982',151,'2024-10-12 04:24:40.600'),
+('e74bded7-5c2b-443b-881d-c90b5a21293f',7,'2024-10-12 04:46:32.115'),
+('e74bded7-5c2b-443b-881d-c90b5a21293f',8,'2024-10-12 04:46:33.799'),
+('e74bded7-5c2b-443b-881d-c90b5a21293f',9,'2024-10-12 04:46:36.089'),
+('e74bded7-5c2b-443b-881d-c90b5a21293f',92,'2024-10-12 04:49:44.290'),
+('e74bded7-5c2b-443b-881d-c90b5a21293f',93,'2024-10-12 04:49:45.810'),
+('e74bded7-5c2b-443b-881d-c90b5a21293f',94,'2024-10-12 04:49:46.994'),
+('e74bded7-5c2b-443b-881d-c90b5a21293f',144,'2024-10-12 04:50:13.381'),
+('e74bded7-5c2b-443b-881d-c90b5a21293f',150,'2024-10-12 04:46:03.011');
 /*!40000 ALTER TABLE `capturas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -317,6 +344,7 @@ CREATE TABLE `treinadores` (
   `senha` varchar(60) NOT NULL,
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `updatedAt` datetime(3) NOT NULL,
+  `codigo` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `treinadores_email_key` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -329,8 +357,8 @@ CREATE TABLE `treinadores` (
 LOCK TABLES `treinadores` WRITE;
 /*!40000 ALTER TABLE `treinadores` DISABLE KEYS */;
 INSERT INTO `treinadores` VALUES
-('79fa10d6-58ad-485e-a6b3-d420e533b982','Pedro Santos','ped@gmail.com','$2b$12$CFfnMqNEYnH3xFWjU0IXc.ZZauIuYenUTYxM9EWWtT1a6k0c4t41e','2024-10-11 07:03:07.278','2024-10-11 07:03:07.278'),
-('e74bded7-5c2b-443b-881d-c90b5a21293f','Ana Maria Santos','ana@gmail.com','$2b$12$cVX4jhMH94flqCOk.gc4SuZ30C5jF6Al1dJsl8X0YAJf.yd4aeGoy','2024-10-11 07:02:09.413','2024-10-11 07:02:09.413');
+('79fa10d6-58ad-485e-a6b3-d420e533b982','Pedro Santos','ped@gmail.com','$2b$12$UFy6TyhR99i6B1SeT1QaO./2xO7QnKm6KRmQc4ieDHmgGM8Mszo4K','2024-10-11 07:03:07.278','2024-10-12 07:37:17.649',934234),
+('e74bded7-5c2b-443b-881d-c90b5a21293f','Ana Maria Santos','ana@gmail.com','$2b$12$cVX4jhMH94flqCOk.gc4SuZ30C5jF6Al1dJsl8X0YAJf.yd4aeGoy','2024-10-11 07:02:09.413','2024-10-11 07:02:09.413',NULL);
 /*!40000 ALTER TABLE `treinadores` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -343,4 +371,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2024-10-11  6:06:42
+-- Dump completed on 2024-10-12  4:40:16

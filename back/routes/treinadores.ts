@@ -91,9 +91,17 @@ router.delete("/:id", async (req, res) => {
     const { id } = req.params
 
     try {
-        const treinador = await prisma.treinador.delete({
-            where: { id: id }
+
+        await prisma.captura.deleteMany({
+            where: {
+                treinadorId: id,
+            }
         })
+
+        const treinador = await prisma.treinador.delete({
+            where: { id }
+        })
+
         res.status(200).json(treinador)
     } catch (error) {
         res.status(400).json(error)
