@@ -12,21 +12,25 @@ export function Header() {
     const { logaTreinador } = useTreinadorStore()
 
     useEffect(() => {
-      async function buscaTreinador(idTreinador: string) {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/${idTreinador}`)
-  
-        if (response.status == 200) {
-          const dados = await response.json()
-          logaTreinador(dados)
+        async function buscaTreinador(idTreinador: string) {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/${idTreinador}`)
+
+            if (response.status == 200) {
+                const dados = await response.json()
+                logaTreinador(dados)
+            }
         }
-      }
-  
-      if (localStorage.getItem("treinador_key")) {
-        const idTreinadorLocal = localStorage.getItem("treinador_key") as string
-        buscaTreinador(idTreinadorLocal)
-      }
-  
-      
+
+        if (localStorage.getItem("treinador_key")) {
+            const idTreinadorLocal = localStorage.getItem("treinador_key") as string
+            buscaTreinador(idTreinadorLocal)
+        }
+
+        const email = localStorage.getItem("email_recuperacao");
+        if (email) {
+            localStorage.removeItem("email_recuperacao")
+        }
+
     }, [])
 
     function sairTreinador() {
@@ -52,8 +56,11 @@ export function Header() {
                             <span className="text-gray-500 dark:text-white hover:underline">
                                 {treinador.nome}
                             </span>
+                            <Link href="/minha-pokedex" className="text-blue-500 dark:text-blue-500 font-bold hover:underline">
+                                Minha Pokedex
+                            </Link>
                             <span
-                                className="cursor-pointer font-bold  text-blue-700 dark:text-blue-700 hover:underline"
+                                className="cursor-pointer text-blue-500 dark:text-blue-500 hover:underline"
                                 onClick={sairTreinador}
                             >
                                 Sair
@@ -64,7 +71,7 @@ export function Header() {
                             <span className="text-gray-500 dark:text-white hover:underline">
                                 (identifique-se)
                             </span>
-                            <Link href="/login" className="font-bold  text-blue-700 dark:text-blue-700 hover:underline">
+                            <Link href="/login" className="font-bold  text-blue-500 dark:text-blue-500 hover:underline">
                                 Entrar
                             </Link>
                         </>

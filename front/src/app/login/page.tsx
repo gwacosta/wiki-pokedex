@@ -58,7 +58,7 @@ export default function Login() {
                         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit(verificaLogin)}>
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    E-mail do Treinador:
+                                    E-mail:
                                 </label>
                                 <input
                                     type="email"
@@ -99,7 +99,7 @@ export default function Login() {
                                         </label>
                                     </div>
                                 </div>
-                                <Link href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-white">
+                                <Link href="/recupera-senha" className="text-sm font-medium text-primary-600 hover:underline dark:text-white">
                                     Esqueceu sua Senha?
                                 </Link>
                             </div>

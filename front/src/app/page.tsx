@@ -15,6 +15,7 @@ export default function Home() {
     async function buscaDados() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemons`)
       const dados = await response.json()
+
       setPokemons(dados)
     }
 
@@ -34,7 +35,12 @@ export default function Home() {
       buscaTreinador(idTreinadorLocal)
     }
 
-    
+    const email = localStorage.getItem("email_recuperacao");
+    if (email) {
+      localStorage.removeItem("email_recuperacao")
+    }
+
+
   }, [])
 
 

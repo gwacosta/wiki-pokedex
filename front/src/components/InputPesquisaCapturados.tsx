@@ -1,3 +1,4 @@
+import { useTreinadorStore } from "@/context/treinador"
 import { PokemonI } from "@/utils/types/pokemons"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
@@ -11,8 +12,9 @@ type InputPesquisaProps = {
     setPokemons: React.Dispatch<React.SetStateAction<PokemonI[]>>
 }
 
-export function InputPesquisaIniciais({ setPokemons }: InputPesquisaProps) {
+export function InputPesquisaCapturados({ setPokemons }: InputPesquisaProps) {
     const { register, handleSubmit, reset } = useForm<Inputs>()
+    const { treinador } = useTreinadorStore()
 
     async function enviaPesquisa(data: Inputs) {
 
@@ -22,20 +24,48 @@ export function InputPesquisaIniciais({ setPokemons }: InputPesquisaProps) {
             return
         }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemons/pesquisaIniciais/${data.termo}`)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/${treinador.id}/capturas`)
         const dados = await response.json()
 
-        if (dados.length == 0) {
+        const pokemonsFiltrados = dados.filter((pokemon: PokemonI) =>
+            pokemon.nome.toLowerCase().includes(data.termo.toLowerCase()) ||
+            pokemon.tipos.some((tipo: string) => tipo.toLowerCase().includes(data.termo.toLowerCase())) ||
+            pokemon.habPassiva.toLowerCase().includes(data.termo.toLowerCase()) ||
+            pokemon.numero.toString().includes(data.termo)
+        );
+
+        if (pokemonsFiltrados.length == 0) {
             toast.error("Não foi encontrado Pokémons para a pesquisa informada!")
             reset({ termo: "" })
             return
         }
 
-        setPokemons(dados)
+        setPokemons(pokemonsFiltrados)
     }
 
-    async function buscaIniciais() {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemons/pesquisaGrupo/2`)
+    async function buscaTodosCapturados() {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/${treinador.id}/capturas`)
+        const dados = await response.json()
+        setPokemons(dados)
+        reset({ termo: "" })
+    }
+
+    async function buscaIniciaisCapturados() {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/${treinador.id}/capturas/grupos/2`)
+        const dados = await response.json()
+        setPokemons(dados)
+        reset({ termo: "" })
+    }
+
+    async function buscaMiticosCapturados() {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/${treinador.id}/capturas/grupos/3`)
+        const dados = await response.json()
+        setPokemons(dados)
+        reset({ termo: "" })
+    }
+
+    async function buscaLendariosCapturados() {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/${treinador.id}/capturas/grupos/4`)
         const dados = await response.json()
         setPokemons(dados)
         reset({ termo: "" })
@@ -69,26 +99,26 @@ export function InputPesquisaIniciais({ setPokemons }: InputPesquisaProps) {
                 </form>
             </div>
             <div className="flex max-w-5xl justify-center mx-auto mt-3">
-                <Link href="/">
-                    <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        Ver Todos
-                    </button>
-                </Link>
+                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                    onClick={buscaTodosCapturados}
+                >
+                    Ver Todos
+                </button>
                 <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                    onClick={buscaIniciais}
+                    onClick={buscaIniciaisCapturados}
                 >
                     Ver Iniciais
                 </button>
-                <Link href="/miticos">
-                    <button type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
-                        Ver Míticos
-                    </button>
-                </Link>
-                <Link href="/lendarios">
-                    <button type="button" className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
-                        Ver Lendários
-                    </button>
-                </Link>
+                <button type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                    onClick={buscaMiticosCapturados}
+                >
+                    Ver Míticos
+                </button>
+                <button type="button" className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+                    onClick={buscaLendariosCapturados}
+                >
+                    Ver Lendários
+                </button>
             </div>
         </section>
     )

@@ -50,6 +50,7 @@ model Treinador {
   nome      String   @db.VarChar(60)
   email     String   @db.VarChar(40) @unique
   senha     String   @db.VarChar(60)
+  codigo    Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   capturas  Captura[]

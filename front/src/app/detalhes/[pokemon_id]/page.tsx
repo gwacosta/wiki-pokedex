@@ -20,8 +20,42 @@ export default function Detalhes() {
             const dados = await response.json()
             setPokemon(dados)
         }
+
+        async function verificaCaptura() {
+            if (treinador.id) {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/capturas/${treinador.id}/${params.pokemon_id}`)
+                const data = await response.json()
+                setCapturado(data.capturado)
+            }
+        }
+
         buscaDados()
-    }, [])
+        verificaCaptura()
+    }, [params.pokemon_id, treinador.id])
+
+    const handleCaptura = async () => {
+        if (treinador.id && pokemon) {
+            console.log(treinador.id)
+            console.log(pokemon)
+            console.log(capturado)
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/capturas`, {
+                method: capturado ? 'DELETE' : 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    treinadorId: treinador.id,
+                    pokemonId: pokemon.id,
+                }),
+            })
+            console.log(response)
+
+
+            if (response.status == 200 || response.status == 201 || response.ok) {
+                setCapturado(!capturado)
+            }
+        }
+    }
 
     const getEvolucoes = (pokemon: PokemonI) => {
         const evolucoes = [];
@@ -50,7 +84,7 @@ export default function Detalhes() {
 
     return (
 
-        <section className="flex flex-col mt-32 mx-auto items-center bg-white border border-gray-400 rounded-lg shadow md:flex-row md:max-w-5xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <section className="flex flex-col mt-32 mb-32 mx-auto items-center bg-white border border-gray-400 rounded-lg shadow md:flex-row md:max-w-5xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <img className="object-cover w-full rounded-t-lg h-96 md:h-2/4 md:w-2/4 md:rounded-none md:rounded-s-lg" src={pokemon?.foto} alt="" />
             <div className="flex flex-col justify-between p-4 leading-normal">
                 <h5 className="flex justify-between mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -60,7 +94,7 @@ export default function Detalhes() {
                             src={capturado ? "/pokeball.png" : "/pokeball_pb.png"}
                             alt="Pokebola Preto e Branca"
                             className="w-10 h-10 cursor-pointer"
-                            onClick={() => setCapturado(!capturado)}
+                            onClick={handleCaptura}
                         />
                     }
                 </h5>
