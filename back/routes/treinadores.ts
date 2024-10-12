@@ -264,7 +264,7 @@ async function enviaEmail(nome: string, email: string, codigo: number) {
     console.log("Message sent: %s", info.messageId);
 }
 
-router.post("/recuperar-senha", async (req, res) => {
+router.post("/gera-codigo", async (req, res) => {
     const { email } = req.body;
 
     try {

@@ -13,7 +13,7 @@ export default function SolicitarRecuperacao() {
     const router = useRouter();
 
     async function verificaEmail(data: Inputs) {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/recuperar-senha`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/gera-codigo`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
