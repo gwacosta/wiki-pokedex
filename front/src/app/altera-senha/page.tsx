@@ -76,7 +76,12 @@ export default function AlterarSenha() {
             localStorage.removeItem("email_recuperacao");
             router.push("/login");
         } else {
-            toast.error("Erro ao alterar senha!");
+            const erro = await response.json();
+            if (erro.erro === "A nova senha não pode ser igual à senha antiga") {
+                toast.warning("A nova senha não pode ser igual à senha antiga");
+            } else {
+                toast.error("Erro ao alterar senha!");
+            }
         }
     }
 

@@ -331,6 +331,13 @@ router.patch("/alterar-senha", async (req, res) => {
             return;
         }
 
+        const senhaAntiga = treinador.senha;
+
+        if (bcrypt.compareSync(novaSenha, senhaAntiga)) {
+            res.status(400).json({ erro: "A nova senha não pode ser igual à senha antiga" });
+            return;
+        }
+
         const salt = bcrypt.genSaltSync(12);
         const hash = bcrypt.hashSync(novaSenha, salt);
 
