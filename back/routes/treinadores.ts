@@ -338,8 +338,6 @@ router.patch("/alterar-senha", async (req, res) => {
             return;
         }
 
-        // teste
-
         const salt = bcrypt.genSaltSync(12);
         const hash = bcrypt.hashSync(novaSenha, salt);
 
