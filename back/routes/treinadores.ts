@@ -244,7 +244,7 @@ router.get("/:treinadorId/capturas/grupos/:grupoId", async (req, res) => {
 async function enviaEmail(nome: string, email: string, codigo: number) {
     const transporter = nodemailer.createTransport({
         host: "sandbox.smtp.mailtrap.io",
-        port: 2525,
+        port: 587,
         secure: false,
         auth: {
             user: "ad91b593d3bd91",

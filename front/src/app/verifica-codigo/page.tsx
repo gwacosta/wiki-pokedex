@@ -45,7 +45,7 @@ export default function VerificarCodigo() {
             return;
         }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/recuperar-senha`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/gera-codigo`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
