@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE `pokemons` ADD COLUMN `numero` INTEGER NOT NULL DEFAULT 0;

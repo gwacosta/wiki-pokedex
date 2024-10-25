@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -28,7 +28,7 @@ model Pokemon {
   peso           Decimal   @db.Decimal(6, 1)
   altura         Decimal   @db.Decimal(5, 1)
   habPassiva     String    @db.VarChar(60)
-  descricao      String    @db.MediumText
+  descricao      String
   tipos          Json      @db.Json
   fraquezas      Json      @db.Json
   foto           String
