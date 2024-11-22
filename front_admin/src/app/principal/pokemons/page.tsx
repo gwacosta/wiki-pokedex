@@ -2,55 +2,67 @@
 import { useEffect, useState } from "react"
 import Link from 'next/link'
 
-import ItemCarro from '@/components/ItemPokemon'
-import { CarroI } from "@/utils/types/carros"
+import ItemPokemon from '@/components/ItemPokemon'
+import { PokemonI } from "@/utils/types/pokemons"
 
-function CadCarros() {
-  const [carros, setCarros] = useState<CarroI[]>([])
+function CadPokemons() {
+  const [pokemons, setPokemons] = useState<PokemonI[]>([])
 
   useEffect(() => {
-    async function getCarros() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/carros`)
+    async function getPokemons() {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/pokemons`)
       const dados = await response.json()
-      setCarros(dados)
+      setPokemons(dados)
     }
-    getCarros()
+    getPokemons()
   }, [])
 
-  const listaCarros = carros.map(carro => (
-    <ItemCarro key={carro.id} carro={carro} carros={carros} setCarros={setCarros} />
+  const listaPokemons = pokemons.map(pokemon => (
+    <ItemPokemon key={pokemon.id} pokemon={pokemon} pokemons={pokemons} setPokemons={setPokemons} />
   ))
 
   return (
     <div className='m-4 mt-24'>
       <div className='flex justify-between'>
-        <h1 className="mb-4 text-2xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
-          Cadastro de Carros
+        <h1 className="mb-4 text-2xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl">
+          Cadastro de Pokemons
         </h1>
-        <Link href="carros/novo" 
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-          Novo Carro
+        <Link href="pokemons/novo" 
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 me-2 mb-2 focus:outline-none">
+          Novo Pokemon
         </Link>
       </div>
 
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+          <thead className="text-xs text-center text-gray-700 uppercase bg-gray-200">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Foto
               </th>
               <th scope="col" className="px-6 py-3">
-                Modelo do Carro
+                Nome
               </th>
               <th scope="col" className="px-6 py-3">
-                Marca
+                Número
               </th>
               <th scope="col" className="px-6 py-3">
-                Ano
+                Peso
               </th>
               <th scope="col" className="px-6 py-3">
-                Preço R$
+                Altura
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Grupo
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Tipos
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Fraquezas
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Habilidade
               </th>
               <th scope="col" className="px-6 py-3">
                 Ações
@@ -58,7 +70,7 @@ function CadCarros() {
             </tr>
           </thead>
           <tbody>
-            {listaCarros}
+            {listaPokemons}
           </tbody>
         </table>
       </div>
@@ -66,4 +78,4 @@ function CadCarros() {
   )
 }
 
-export default CadCarros
+export default CadPokemons

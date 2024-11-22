@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 import { Router } from "express"
+import { verificaToken } from "../middewares/verificaToken"
 
 const prisma = new PrismaClient()
 const router = Router()
@@ -23,16 +24,32 @@ router.get("/", async (req, res) => {
   }
 })
 
-router.post("/", async (req, res) => {
-  const { nome, numero, peso, altura, habPassiva, descricao, tipos, fraquezas, foto, grupoId, evolucaoId, evoluiDeId } = req.body
+router.post("/", verificaToken, async (req, res) => {
+  let { nome, numero, peso, altura, habPassiva, descricao, tipos, fraquezas, foto, grupoId, evolucaoId, evoluiDeId } = req.body
+
+  if (evolucaoId == "") {
+    evolucaoId = null;
+  } else {
+    evolucaoId = Number(evolucaoId)
+  }
+  if (evoluiDeId == "") {
+    evoluiDeId = null;
+  } else {
+    evoluiDeId = Number(evoluiDeId)
+  }
 
   if (!nome || !numero || !peso || !altura || !habPassiva || !descricao || !tipos || !fraquezas || !foto || !grupoId) {
     res.status(400).json({ "erro": "Informe nome, numero, peso, altura, habPassiva, descricao, tipos, fraquezas, foto, grupoId" })
     return
   }
 
-  try {
+  numero = Number(numero)
+  peso = Number(peso)
+  altura = Number(altura)
+  grupoId = Number(grupoId)
 
+  try {
+    console.log("teste2")
     const pokemon = await prisma.pokemon.create({
       data: {
         nome,
@@ -82,7 +99,7 @@ router.post("/", async (req, res) => {
   }
 })
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verificaToken, async (req, res) => {
   const { id } = req.params
 
   try {
@@ -227,7 +244,7 @@ router.get("/pesquisa/:termo", async (req, res) => {
           numero: 'asc'
         }
       })
-  
+
       res.status(200).json(pokemons)
     } catch (error) {
       res.status(400).json(error)
