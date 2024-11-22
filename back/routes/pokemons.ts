@@ -219,18 +219,15 @@ router.get("/pesquisa/:termo", async (req, res) => {
         },
         where: {
           OR: [
-            { nome: { contains: termo } },
-            // tipos teve que ficar assim devido a limitação do mysql que nao permite definir um array de strings como tipo de um campo na model
-            // então ele só busca se digitar corretamente como está dentro do Json.
-            { tipos: { array_contains: termo } },
-            { habPassiva: { contains: termo } }
+            { nome: { contains: termo, mode: 'insensitive' } },
+            { habPassiva: { contains: termo, mode: 'insensitive' } }
           ]
         },
         orderBy: {
           numero: 'asc'
         }
-
       })
+  
       res.status(200).json(pokemons)
     } catch (error) {
       res.status(400).json(error)
@@ -249,6 +246,7 @@ router.get("/pesquisa/:termo", async (req, res) => {
       })
       res.status(200).json(pokemons)
     } catch (error) {
+      console.error(error);
       res.status(400).json(error)
     }
   }
@@ -299,7 +297,6 @@ router.get("/pesquisaIniciais/:termo", async (req, res) => {
             {
               OR: [
                 { nome: { contains: termo } },
-                { tipos: { array_contains: termo } },
                 { habPassiva: { contains: termo } }
               ]
             },
@@ -360,7 +357,6 @@ router.get("/pesquisaMiticos/:termo", async (req, res) => {
             {
               OR: [
                 { nome: { contains: termo } },
-                { tipos: { array_contains: termo } },
                 { habPassiva: { contains: termo } }
               ]
             },
@@ -421,7 +417,6 @@ router.get("/pesquisaLendarios/:termo", async (req, res) => {
             {
               OR: [
                 { nome: { contains: termo } },
-                { tipos: { array_contains: termo } },
                 { habPassiva: { contains: termo } }
               ]
             },
