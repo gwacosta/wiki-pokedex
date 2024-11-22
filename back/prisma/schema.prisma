@@ -40,19 +40,21 @@ model Pokemon {
   evoluiDe       Pokemon?  @relation("EvoluiDe", fields: [evoluiDeId], references: [id])
   evoluiDeId     Int?
   origemEvolucao Pokemon[] @relation("EvoluiDe")
-  capturas  Captura[]
+  capturas       Captura[]
+  Admin          Admin     @relation(fields: [adminId], references: [id])
+  adminId        Int       @default(1)
 
   @@map("pokemons")
 }
 
 model Treinador {
-  id        String   @id @default(uuid()) @db.VarChar(36)
-  nome      String   @db.VarChar(60)
-  email     String   @db.VarChar(40) @unique
-  senha     String   @db.VarChar(60)
+  id        String    @id @default(uuid()) @db.VarChar(36)
+  nome      String    @db.VarChar(60)
+  email     String    @unique @db.VarChar(40)
+  senha     String    @db.VarChar(60)
   codigo    Int?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   capturas  Captura[]
 
   @@map("treinadores")
@@ -61,12 +63,24 @@ model Treinador {
 model Captura {
   treinador   Treinador @relation(fields: [treinadorId], references: [id])
   treinadorId String    @db.VarChar(36)
-  
-  pokemon     Pokemon   @relation(fields: [pokemonId], references: [id])
-  pokemonId   Int
-  
-  createdAt   DateTime  @default(now())
+
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int
+
+  createdAt DateTime @default(now())
 
   @@id([treinadorId, pokemonId])
   @@map("capturas")
+}
+
+model Admin {
+  id        Int       @id @default(autoincrement())
+  nome      String    @db.VarChar(60)
+  email     String    @unique @db.VarChar(60)
+  senha     String    @db.VarChar(60) // senha deve ser varchar(60)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  pokemons  Pokemon[]
+
+  @@map("admins")
 }

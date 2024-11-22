@@ -205,6 +205,11 @@ router.get("/:treinadorId/capturas", async (req, res) => {
             },
             include: {
                 pokemon: true
+            },
+            orderBy: {
+                pokemon: {
+                    numero: 'asc'
+                }
             }
         })
 

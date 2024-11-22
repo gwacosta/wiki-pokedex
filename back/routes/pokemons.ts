@@ -10,7 +10,8 @@ router.get("/", async (req, res) => {
       include: {
         grupo: true,
         evolucao: true,
-        evoluiDe: true
+        evoluiDe: true,
+        Admin: true
       },
       orderBy: {
         numero: 'asc'
