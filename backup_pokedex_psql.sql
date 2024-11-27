@@ -5,8 +5,8 @@
 -- Dumped from database version 16.3
 -- Dumped by pg_dump version 16.3
 
-DROP DATABASE IF EXISTS "pokedex";
-CREATE DATABASE "pokedex";
+DROP TABLE IF EXISTS pokedex;
+CREATE TABLE pokedex;
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -251,6 +251,9 @@ b5c0223d-1f2b-428e-82fd-20cbc8eab204	144	2024-11-22 05:27:11.504
 b5c0223d-1f2b-428e-82fd-20cbc8eab204	150	2024-11-22 05:27:15.189
 b5c0223d-1f2b-428e-82fd-20cbc8eab204	94	2024-11-22 05:52:05.73
 b5c0223d-1f2b-428e-82fd-20cbc8eab204	65	2024-11-22 05:52:11.354
+b5c0223d-1f2b-428e-82fd-20cbc8eab204	152	2024-11-27 06:54:13.024
+dbc3f5f1-0353-48ad-bc91-db985bb563d8	156	2024-11-27 07:59:03.421
+dbc3f5f1-0353-48ad-bc91-db985bb563d8	3	2024-11-27 08:50:38.312
 \.
 
 
@@ -422,10 +425,10 @@ COPY public.pokemons (id, nome, numero, peso, altura, "habPassiva", descricao, t
 150	Mewtwo	150	122.0	2.0	Pressure	It was created by a scientist after years of horrific gene splicing and DNA engineering experiments.	["Psiquico"]	["Fantasma","Inseto","Sombrio"]	https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/150.png	4	\N	\N	1
 151	Mew	151	4.0	0.4	Synchronize	So rare that it is still said to be a mirage by many experts. Only a few people have seen it worldwide.	["Psiquico"]	["Fantasma","Inseto","Sombrio"]	https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/151.png	3	\N	\N	1
 152	Darkrai	491	50.5	1.5	Bad Dreams	It chases people and Pokémon from its territory by causing them to experience deep, nightmarish slumbers.	["Escuridao"]	["Lutador","Inseto","Fada"]	https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/491.png	3	\N	\N	1
-153	Arceus	493	50.5	1.5	Bad Dreams	It chases people and Pokémon from its territory by causing them to experience deep, nightmarish slumbers.	["Escuridao"]	["Lutador","Inseto","Fada"]	https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/493.png	3	\N	\N	1
 154	Deoxys	386	50.5	1.5	Bad Dreams	It chases people and Pokémon from its territory by causing them to experience deep, nightmarish slumbers.	["Escuridao"]	["Lutador","Inseto","Fada"]	https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/386.png	3	\N	\N	1
 3	Venusaur	3	100.0	2.0	Overgrow	While it basks in the sun, it can convert the light into energy. As a result, it is more powerful in the summertime.	["Grama","Venenoso"]	["Fogo","Gelo","Voador","Psiquico"]	https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/003.png	1	\N	2	1
 155	Celebi	251	5.0	0.6	Natural Cure	This Pokémon came from the future by crossing over time. It is thought that so long as Celebi appears, a bright and shining future awaits us.	["Psiquico","Grama"]	["Fogo","Gelo","Venenoso","Voador","Inseto","Fantasma","Escuridao"]	https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/251.png	3	\N	\N	1
+156	Arceus	493	320.0	3.2	Multitype	According to the legends of Sinnoh, this Pokémon emerged from an egg and shaped all there is in this world. 	["Normal"]	["Psiquico"]	https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/493.png	3	\N	\N	1
 \.
 
 
@@ -457,7 +460,7 @@ SELECT pg_catalog.setval('public.grupos_id_seq', 4, true);
 -- Name: pokemons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.pokemons_id_seq', 155, true);
+SELECT pg_catalog.setval('public.pokemons_id_seq', 156, true);
 
 
 --

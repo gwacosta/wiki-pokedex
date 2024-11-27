@@ -64,10 +64,8 @@ router.post("/", async (req, res) => {
     }
 })
 
-router.delete("/", verificaToken, async (req, res) => {
+router.delete("/", async (req, res) => {
     const { treinadorId, pokemonId } = req.body;
-
-    console.log('teste', treinadorId, pokemonId)
 
     if (!treinadorId || !pokemonId) {
         res.status(400).json({ "erro": "Informe treinadorId e pokemonId" });

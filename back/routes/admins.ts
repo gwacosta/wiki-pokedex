@@ -131,7 +131,8 @@ router.post("/login", async (req, res) => {
                 admin_logado_nome: admin.nome
             },
                 process.env.JWT_KEY as string,
-                { expiresIn: "1h" })
+                { expiresIn: "1h" }
+            )
 
             res.status(200).json({ id: admin.id, nome: admin.nome, token })
         } else {
