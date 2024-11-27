@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 import { Router } from "express"
+import { verificaToken } from "../middewares/verificaToken"
 
 // const prisma = new PrismaClient()
 const prisma = new PrismaClient({
@@ -45,7 +46,7 @@ router.get("/", async (req, res) => {
     }
 })
 
-router.post("/", async (req, res) => {
+router.post("/", verificaToken, async (req, res) => {
     const { treinadorId, pokemonId } = req.body
 
     if (!treinadorId || !pokemonId) {
@@ -63,7 +64,7 @@ router.post("/", async (req, res) => {
     }
 })
 
-router.delete("/", async (req, res) => {
+router.delete("/", verificaToken, async (req, res) => {
     const { treinadorId, pokemonId } = req.body;
 
     if (!treinadorId || !pokemonId) {

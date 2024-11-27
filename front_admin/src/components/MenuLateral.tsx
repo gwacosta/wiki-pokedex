@@ -40,14 +40,6 @@ export function MenuLateral() {
             </Link>
           </li>
           <li>
-            <Link href="/principal/treinadores" className="flex items-center p-2">
-              <span className="h-5 text-gray-600 text-2xl">
-                <FaUsers />
-              </span>
-              <span className="ms-2 mt-1">Controle de Treinadores</span>
-            </Link>
-          </li>
-          <li>
             <Link href="/principal/capturas" className="flex items-center p-2 cursor-pointer">
               <span className="h-5 text-gray-600 text-2xl">
                 <img className="h-5" src="./dex_pb.png" alt="Pokedex" />
