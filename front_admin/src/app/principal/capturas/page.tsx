@@ -11,7 +11,7 @@ export default function ControleCapturas() {
 
   useEffect(() => {
     async function getTreinadores() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores`)
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/treinadores`)
       const dados = await response.json()
       setTreinadores(dados)
     }
@@ -21,7 +21,7 @@ export default function ControleCapturas() {
   useEffect(() => {
     async function getCapturas() {
       if (treinadorSelecionado) {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/${treinadorSelecionado}/capturas`)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/treinadores/${treinadorSelecionado}/capturassemmap`)
         const dados = await response.json()
         setCapturas(dados)
       } else {
@@ -31,15 +31,23 @@ export default function ControleCapturas() {
     getCapturas()
   }, [treinadorSelecionado])
 
+  const handleDelete = async () => {
+    if (treinadorSelecionado) {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/treinadores/${treinadorSelecionado}/capturassemmap`)
+      const dados = await response.json()
+      setCapturas(dados)
+    }
+  }
+
   const listaCapturas = capturas.map(captura => (
-    <ItemCaptura key={captura.treinadorId + String(captura.pokemonId)} captura={captura} capturas={capturas} setCapturas={setCapturas} />
+    <ItemCaptura key={captura.treinadorId + String(captura.pokemonId)} captura={captura} capturas={capturas} setCapturas={setCapturas} onDelete={handleDelete} />
   ))
 
   return (
     <div className='m-4 mt-24'>
       <div className='flex justify-between items-center'>
         <h1 className="mb-4 text-2xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl">
-          Cadastro de Pokemons
+          Controle de Pokedex
         </h1>
         <div className="flex items-center mb-4">
           <label htmlFor="treinador" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione um Treinador</label>

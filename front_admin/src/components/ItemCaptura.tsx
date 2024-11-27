@@ -9,14 +9,17 @@ interface listaCapturaProps {
   captura: CapturaI,
   capturas: CapturaI[],
   setCapturas: Dispatch<SetStateAction<CapturaI[]>>
+  onDelete: () => void
 }
 
-function ItemCaptura({ captura, capturas, setCapturas }: listaCapturaProps) {
+function ItemCaptura({ captura, capturas, setCapturas, onDelete }: listaCapturaProps) {
 
-  async function excluirCaptura() {
+  const handleDelete = async () => {
+
+
 
     if (confirm(`Confirma Exclusão da Captura do Pokemon "${captura.pokemon.nome}" pelo Treinador "${captura.treinador.nome}"?`)) {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/capturas/}`,
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/capturas`,
         {
           method: "DELETE",
           headers: {
@@ -39,6 +42,7 @@ function ItemCaptura({ captura, capturas, setCapturas }: listaCapturaProps) {
       } else {
         alert("Erro... Captura não foi excluída")
       }
+      onDelete()
     }
   }
 
@@ -62,7 +66,7 @@ function ItemCaptura({ captura, capturas, setCapturas }: listaCapturaProps) {
       </td>
       <td className="px-6 py-4">
         <TiDeleteOutline className="text-3xl text-red-600 inline-block cursor-pointer" title="Excluir"
-          onClick={excluirCaptura} />
+          onClick={handleDelete} />
       </td>
 
     </tr>

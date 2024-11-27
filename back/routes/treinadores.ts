@@ -204,7 +204,8 @@ router.get("/:treinadorId/capturas", async (req, res) => {
                 treinadorId
             },
             include: {
-                pokemon: true
+                pokemon: true,
+                treinador: true
             },
             orderBy: {
                 pokemon: {
@@ -213,9 +214,39 @@ router.get("/:treinadorId/capturas", async (req, res) => {
             }
         })
 
+        console.log("Capturas retornadas: ", capturas)
+
         const pokemonsCapturados = capturas.map(captura => captura.pokemon);
 
         res.status(200).json(pokemonsCapturados)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
+router.get("/:treinadorId/capturassemmap", async (req, res) => {
+
+    const { treinadorId } = req.params;
+
+    try {
+        const capturas = await prisma.captura.findMany({
+            where: {
+                treinadorId
+            },
+            include: {
+                pokemon: true,
+                treinador: true
+            },
+            orderBy: {
+                pokemon: {
+                    numero: 'asc'
+                }
+            }
+        })
+
+        console.log("Capturas retornadas: ", capturas)
+
+        res.status(200).json(capturas)
     } catch (error) {
         res.status(400).json(error)
     }
