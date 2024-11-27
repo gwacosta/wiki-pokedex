@@ -6,6 +6,7 @@
 -- Dumped by pg_dump version 16.3
 
 DROP DATABASE IF EXISTS "pokedex";
+CREATE DATABASE "pokedex";
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -21,8 +22,6 @@ SET row_security = off;
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
-
-CREATE DATABASE "pokedex";
 
 --
 -- Name: _prisma_migrations; Type: TABLE; Schema: public; Owner: postgres
