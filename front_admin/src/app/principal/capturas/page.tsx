@@ -50,7 +50,7 @@ export default function ControleCapturas() {
           Controle de Pokedex
         </h1>
         <div className="flex items-center mb-4">
-          <label htmlFor="treinador" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione um Treinador</label>
+          <label htmlFor="treinador" className="block mb-2 text-sm font-medium text-gray-900">Selecione um Treinador</label>
           <select
             id="treinador"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -65,8 +65,8 @@ export default function ControleCapturas() {
         </div>
       </div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+          <thead className="text-xs text-center text-gray-700 uppercase bg-gray-200">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Foto do Pokemon

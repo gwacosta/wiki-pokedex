@@ -47,7 +47,7 @@ function ItemCaptura({ captura, capturas, setCapturas, onDelete }: listaCapturaP
   }
 
   return (
-    <tr key={captura.id} className="odd:bg-white even:bg-gray-50 border-b">
+    <tr key={captura.id} className="odd:bg-white even:bg-gray-200 border-b">
       <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
         <img src={captura.pokemon.foto} alt="Foto do Pokemon"
           style={{ width: 200 }} />
