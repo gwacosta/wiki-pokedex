@@ -350,7 +350,7 @@ router.post("/verificar-codigo", async (req, res) => {
     }
 });
 
-router.patch("/alterar-senha", async (req, res) => {
+router.put("/alterar-senha", async (req, res) => {
     const { email, novaSenha } = req.body;
 
     const erros = validaSenha(novaSenha)
