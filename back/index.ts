@@ -11,14 +11,20 @@ const port = 3004
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use("/treinadores", treinadorRoutes)
 app.use(cors({
   origin: 'https://wiki-pokedex-front.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type']
 }))
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://wiki-pokedex-front.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 app.use("/grupos", gruposRoutes)
 app.use("/pokemons", pokemonsRoutes)
+app.use("/treinadores", treinadorRoutes)
 app.use("/capturas", capturasRoutes)
 app.use("/admins", adminsRoutes)
 app.use("/dashboard", dashboardRoutes)
