@@ -65,7 +65,6 @@ export default function AlterarSenha() {
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/alterar-senha`, {
             method: 'PATCH',
-            mode: 'no-cors',
             headers: {
                 "Content-Type": "application/json"
             },
