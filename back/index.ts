@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import gruposRoutes from './routes/grupos'
 import pokemonsRoutes from './routes/pokemons'
 import treinadorRoutes from "./routes/treinadores"
@@ -10,6 +11,11 @@ const port = 3004
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cors({
+  origin: 'https://wiki-pokedex-front.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type']
+}))
 app.use("/grupos", gruposRoutes)
 app.use("/pokemons", pokemonsRoutes)
 app.use("/treinadores", treinadorRoutes)
