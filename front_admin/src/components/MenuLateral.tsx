@@ -3,8 +3,6 @@ import Cookies from "js-cookie"
 import { useRouter } from "next/navigation"
 import { IoExitOutline } from "react-icons/io5"
 import { BiSolidDashboard } from "react-icons/bi"
-import { FaCarSide, FaUsers } from "react-icons/fa6"
-import { BsCashCoin } from "react-icons/bs"
 import Link from "next/link"
 
 export function MenuLateral() {

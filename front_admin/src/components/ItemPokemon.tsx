@@ -1,5 +1,5 @@
 'use client'
-import { Dispatch, SetStateAction, useEffect } from "react"
+import { Dispatch, SetStateAction } from "react"
 import { TiDeleteOutline } from "react-icons/ti"
 import Cookies from "js-cookie"
 import { PokemonI } from "@/utils/types/pokemons"

@@ -1,7 +1,6 @@
 'use client'
 import { Dispatch, SetStateAction } from "react"
 import { TiDeleteOutline } from "react-icons/ti"
-import { FaRegEdit } from "react-icons/fa"
 import Cookies from "js-cookie"
 import { CapturaI } from "@/utils/types/capturas"
 
