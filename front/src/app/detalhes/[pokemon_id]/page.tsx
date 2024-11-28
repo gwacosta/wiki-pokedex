@@ -103,7 +103,7 @@ export default function Detalhes() {
                         Nº: {pokemon?.numero}
                     </p>
                     <p className="font-bold text-2xl text-gray-700 dark:text-gray-400">
-                        Tipo: {pokemon?.tipos.length > 1 ? pokemon?.tipos.join(', ') : pokemon?.tipos[0]}
+                        Tipo: {pokemon?.tipos && pokemon.tipos.length > 1 ? pokemon.tipos.join(', ') : pokemon?.tipos?.[0]}
                     </p>
                 </div>
                 <div className="flex justify-between mb-3">
@@ -137,7 +137,7 @@ export default function Detalhes() {
                 <p className="font-bold text-xl mb-3 text-gray-700 dark:text-gray-400">
                     Fraquezas:&nbsp;
                     <span className="font-normal text-xl text-gray-700 dark:text-gray-400">
-                        {pokemon?.fraquezas.length > 1 ? pokemon?.fraquezas.join(', ') : pokemon?.fraquezas[0]}
+                        {pokemon?.fraquezas && pokemon?.fraquezas.length > 1 ? pokemon?.fraquezas.join(', ') : pokemon?.fraquezas[0]}
                     </span>
                 </p>
                 <p className="mb-3 font-normal text-xl text-gray-700 dark:text-gray-400">
