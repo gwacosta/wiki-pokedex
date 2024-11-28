@@ -21,14 +21,14 @@ export default function Principal() {
 
   useEffect(() => {
     async function getDadosGerais() {
-      const response = await fetch("http://localhost:3004/dashboard/gerais")
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/dashboard/gerais`)
       const dados = await response.json()
       setDados(dados)
     }
     getDadosGerais()
 
     async function getDadosGrafico() {
-      const response = await fetch("http://localhost:3004/dashboard/pokemonsGrupo")
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/dashboard/pokemonsGrupo`)
       const dados = await response.json()
       setPokemonsGrupo(dados)
     }
