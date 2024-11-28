@@ -94,7 +94,7 @@ export default function VerificarCodigo() {
                             <button type="submit" className="w-full text-white bg-orange-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                 Verificar
                             </button>
-                            <p className="text-sm font-medium text-end text-primary-600 hover:underline cursor-pointer dark:text-white" onClick={reenviarCodigo}>
+                            <p className="text-sm font-medium text-end text-primary-600 hover:underline cursor-pointer dark:text-white inline-block" onClick={reenviarCodigo}>
                                 Reenviar Código
                             </p>
                         </form>
