@@ -23,6 +23,7 @@ export default function VerificarCodigo() {
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/verificar-codigo`, {
             method: 'POST',
+            mode: 'no-cors',
             headers: {
                 "Content-Type": "application/json"
             },
@@ -47,6 +48,7 @@ export default function VerificarCodigo() {
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treinadores/gera-codigo`, {
             method: 'POST',
+            mode: 'no-cors',
             headers: {
                 "Content-Type": "application/json"
             },
