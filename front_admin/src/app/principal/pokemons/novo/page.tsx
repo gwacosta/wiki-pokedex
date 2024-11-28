@@ -12,8 +12,8 @@ type Inputs = {
   altura: number;
   habPassiva: string;
   descricao: string;
-  tipos: any;
-  fraquezas: any;
+  tipos: string[];
+  fraquezas: string[];
   foto: string;
   grupoId: number;
   evolucaoId: number | null;
@@ -38,7 +38,7 @@ function NovoPokemon() {
     }
     getGrupos()
     setFocus("nome"),
-    setValue("grupoId", 1)
+      setValue("grupoId", 1)
   }, [])
 
   const optionsGrupo = grupos.map(grupo => (
@@ -54,8 +54,8 @@ function NovoPokemon() {
       altura: data.altura,
       habPassiva: data.habPassiva,
       descricao: data.descricao,
-      tipos: data.tipos.split(',').map((tipo: string) => tipo.trim()),
-      fraquezas: data.fraquezas.split(',').map((fraqueza: string) => fraqueza.trim()),
+      tipos: typeof data.tipos === 'string' ? (data.tipos as string).split(',').map((tipo: string) => tipo.trim()) : data.tipos,
+      fraquezas: typeof data.fraquezas === 'string' ? (data.fraquezas as string).split(',').map((fraqueza: string) => fraqueza.trim()) : data.fraquezas,
       foto: data.foto,
       grupoId: data.grupoId,
       evolucaoId: data.evolucaoId,
