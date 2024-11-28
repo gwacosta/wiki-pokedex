@@ -1,6 +1,5 @@
 import { useTreinadorStore } from "@/context/treinador"
 import { PokemonI } from "@/utils/types/pokemons"
-import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 

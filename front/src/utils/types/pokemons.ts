@@ -9,8 +9,8 @@ export interface PokemonI {
     altura: number;
     habPassiva: string;
     descricao: string;
-    tipos: any;
-    fraquezas: any;
+    tipos: string[];
+    fraquezas: string[];
     foto: string;
     grupo: GrupoI
     grupoId: number;

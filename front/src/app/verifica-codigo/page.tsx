@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent } from "react";
 
 type Inputs = {
     codigo: string
